@@ -7,14 +7,36 @@ export const mapsKeyboard = (maps: { id: string; name: string }[]) =>
     maps.map((m) => [Markup.button.callback(m.name, `nades:map:${m.id}`)]),
   );
 
-export const typesKeyboard = (map: string, types: { id: string; label: string }[]) =>
+export const sideKeyboard = (map: string) =>
   Markup.inlineKeyboard([
-    types.map((t) => Markup.button.callback(t.label, `nades:map:${map}:${t.id}`)),
+    [Markup.button.callback('T', `nades:map:${map}:side:T`)],
+    [Markup.button.callback('CT', `nades:map:${map}:side:CT`)],
     [Markup.button.callback('⬅️ До карт', 'nades:maps')],
   ]);
 
-export const nadesKeyboard = (map: string, nades: Nade[]) =>
+export const typesKeyboard = (
+  map: string,
+  types: { id: string; label: string }[],
+  side: 'T' | 'CT',
+) =>
   Markup.inlineKeyboard([
-    ...nades.map((n) => [Markup.button.callback(n.title, `nades:show:${n.id}`)]),
-    [Markup.button.callback('⬅️ Назад', `nades:map:${map}`)],
+    types.map((t) =>
+      Markup.button.callback(
+        t.label,
+        `nades:map:${map}:side:${side}:${t.id}`,
+      ),
+    ),
+    [Markup.button.callback('⬅️ До сторон', `nades:map:${map}`)],
+  ]);
+
+export const nadesKeyboard = (
+  map: string,
+  side: 'T' | 'CT',
+  nades: Nade[],
+) =>
+  Markup.inlineKeyboard([
+    ...nades.filter((n) => n.map === map && n.side === side).map((n) => [
+      Markup.button.callback(n.title, `nades:show:${n.id}`),
+    ]),
+    [Markup.button.callback('⬅️ Назад', `nades:map:${map}:side:${side}`)],
   ]);

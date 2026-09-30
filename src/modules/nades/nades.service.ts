@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { existsSync } from 'fs';
 import { join } from 'path';
-import { MAPS, NADE_TYPES, NADES } from './nades.data';
+import { MAPS, NADE_TYPES, NADES, NADES_SIDE } from './nades.data';
 
 // Pure logic, no Telegram here — later the Mini App API can reuse it
 @Injectable()
@@ -12,6 +12,14 @@ export class NadesService {
 
   getMap(id: string) {
     return MAPS.find((m) => m.id === id);
+  }
+  
+  getSides() {
+    return NADES_SIDE;
+  }
+
+  getSide(side: string) {
+    return NADES_SIDE.find((s) => s.id === side);
   }
 
   getTypes() {
@@ -30,5 +38,9 @@ export class NadesService {
   getVideoPath(video: string): string | null {
     const path = join(process.cwd(), 'media', video);
     return existsSync(path) ? path : null;
+  }
+
+  sendNadeMessage(nade: { title: string; video: string }) {
+    return `<b>${nade.title}</b>\n\n<video src="${process.env.MEDIA_URL}/${nade.video}" controls></video>`;
   }
 }

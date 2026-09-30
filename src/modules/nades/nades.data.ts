@@ -1,9 +1,17 @@
 // Your content. Put video files into media/videos/ and reference them here.
 export type NadeType = 'smoke' | 'flash' | 'molotov' | 'he';
 
+function getVideo(nades: Nade[]): string {
+  return nades
+    .map((nade) => nade.video)
+    .filter((v) => v)
+    .join('\n');
+}
+
 export interface Nade {
   id: string;
   map: string;
+  side: 'T' | 'CT';
   type: NadeType;
   title: string;
   video: string; // path inside media/, e.g. 'videos/mirage-jungle.mp4'
@@ -22,7 +30,26 @@ export const NADE_TYPES: { id: NadeType; label: string }[] = [
   { id: 'he', label: '💥 HE' },
 ];
 
+export const NADES_SIDE = [
+  { id: 'T', label: 'T side' },
+  { id: 'CT', label: 'CT side' },
+];
+
 export const NADES: Nade[] = [
-  { id: 'mir1', map: 'mirage', type: 'smoke', title: 'Smoke на Jungle з T spawn', video: 'videos/mirage-jungle.mp4' },
-  { id: 'mir2', map: 'mirage', type: 'flash', title: 'Flash на A site', video: 'videos/mirage-a-flash.mp4' },
+  {
+    id: 'dust1',
+    map: 'dust2',
+    side: 'T',
+    type: 'smoke',
+    title: 'Smoke на Mid з T spawn',
+    video: 'videos/dust2/smokes/TSide/mid-doors.mp4',
+  },
+  {
+    id: 'dust2',
+    map: 'dust2',
+    side: 'CT',
+    type: 'smoke',
+    title: 'Smoke на Mid з CT spawn',
+    video: 'videos/dust2/smokes/CTSide/mid-doors.mp4',
+  }
 ];

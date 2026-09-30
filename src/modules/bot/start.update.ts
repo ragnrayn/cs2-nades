@@ -13,9 +13,9 @@ export class StartUpdate {
     await ctx.reply(TEXT.START(ctx.from?.first_name ?? 'гравцю'), mainKeyboard());
   }
 
-  @Help()
-  @Hears(BTN.HELP)
-  async help(@Ctx() ctx: Context) {
-    await ctx.reply(TEXT.HELP, mainKeyboard());
-  }
+  // @Help()
+  // @Hears(BTN.HELP)
+  // async help(@Ctx() ctx: Context) {
+  //   await ctx.reply(TEXT.HELP, mainKeyboard());
+  // }
 }

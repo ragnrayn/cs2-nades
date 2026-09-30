@@ -2,7 +2,6 @@
 // @Hears() must match these exactly, so they live in one place.
 export const BTN = {
   NADES: '💣 Гранати',
-  HELP: 'ℹ️ Допомога',
 } as const;
 
 export const TEXT = {
